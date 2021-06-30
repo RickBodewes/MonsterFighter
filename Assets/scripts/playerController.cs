@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
@@ -15,11 +16,19 @@ public class playerController : MonoBehaviour
     public Transform groundCheck;
     public float checkRadius;
 
+    // health and regen
+    public int initialHealth;
+    public int regenAmount;
+    public float regenInterval;
+    public Slider healthBar;
+
     // private variables for the engine
     private Animator anim;
     private float moveInput;
     private Rigidbody2D rb;
     private bool isGrounded;
+    private int health;
+    private float regenIntervalTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +36,8 @@ public class playerController : MonoBehaviour
         // assigning the animator component
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        health = initialHealth;
+        regenIntervalTimer = regenInterval;
     }
 
     // fixed update for walking, using getaxis and checking the ground so the player does not have infinite jump
@@ -49,6 +60,26 @@ public class playerController : MonoBehaviour
             anim.SetTrigger("takeOf");
             rb.velocity = Vector2.up * jumpPower;
         }
+
+        // regenerating the players health
+        if (regenIntervalTimer <= 0)
+        {
+            if (health + regenAmount <= initialHealth)
+            {
+                health += regenAmount;
+            }
+            else{
+                health = initialHealth;
+            }
+            regenIntervalTimer = regenInterval;
+        }
+        else
+        {
+            regenIntervalTimer -= Time.deltaTime;
+        }
+
+        //displaying health on the healthbar
+        healthBar.value = (float)health / (float)initialHealth * 100.0f;
 
         // updating the animations
         // walking and rotating in the right direction
@@ -76,5 +107,11 @@ public class playerController : MonoBehaviour
         {
             anim.SetBool("isJumping", true);
         }
+    }
+
+    // this is fired when the player takes damage
+    public void OnDamage(int damage)
+    {
+        health -= damage;
     }
 }
