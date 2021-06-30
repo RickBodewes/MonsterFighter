@@ -68,7 +68,7 @@ public class playerController : MonoBehaviour
         }
 
         // jump animations
-        if (isGrounded == true)
+        if (isGrounded)
         {
             anim.SetBool("isJumping", false);
         }
