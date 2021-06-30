@@ -556,7 +556,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jumpPower: 12
+  jumpPower: 8
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
+  groundCheck: {fileID: 954503206751361295}
+  checkRadius: 0.2
 --- !u!1 &954503206415789308
 GameObject:
   m_ObjectHideFlags: 0
