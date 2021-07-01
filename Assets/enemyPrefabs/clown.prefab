@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 40
-  speed: 8
+  speed: 7
   knockback: 10
   knockbackHeight: 5
   stoppingDistance: 1

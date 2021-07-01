@@ -60,9 +60,11 @@ public class enemyBehaviour : MonoBehaviour
         // when health drops below 0 kill the enemy (and remove)
         if(health <= 0)
         {
-            // TODO: add spawn manager
             // sending the score gained to the score manager
             GameObject.Find("scoreManager").GetComponent<scoreManager>().scoreIncrease(scoreAmount);
+
+            // decreasing the number of enemies in the spawner 
+            GameObject.Find("portal").GetComponent<portalSpawner>().onEnemyKilled();
 
             // destroying the game object
             Destroy(gameObject);
