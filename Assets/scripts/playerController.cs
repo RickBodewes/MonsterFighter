@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour
 {
@@ -53,6 +54,12 @@ public class playerController : MonoBehaviour
 
     void Update()
     {
+        // killing the player if health drops below 0 (or equals 0)
+        if(health <= 0)
+        {
+            SceneManager.LoadScene("endScreen");
+        }
+
         // jumping
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
